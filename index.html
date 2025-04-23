@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Jemputan Hari Jadi Cocomelon</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Comic Sans MS', sans-serif;
+      background: linear-gradient(to bottom, #FF0000, #FFFF00);
+      color: #000;
+      text-align: center;
+      padding: 20px;
+    }
+    .container {
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 20px;
+      background: rgba(255, 255, 255, 0.8);
+      border-radius: 15px;
+      box-shadow: 0 0_quantum 10px rgba(0, 0, 0, 0.2);
+    }
+    h1 {
+      color: #0000FF;
+      font-size: 2.5em;
+      text-shadow: 2px 2px #FFFF00;
+    }
+    .logo {
+      width: 150px;
+      margin: 20px 0;
+    }
+    .button {
+      display: inline-block;
+      padding: 10px 20px;
+      background: #00FF00;
+      color: #000;
+      text-decoration: none;
+      border-radius: 10px;
+      margin: 10px;
+      font-weight: bold;
+      border: 2px solid #0000FF;
+    }
+    .button:hover {
+      background: #FFFF00;
+      color: #FF0000;
+    }
+    .confetti {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <img src="URL_IMej_Cocomelon" alt="Cocomelon" class="logo">
+    <h1>Hari Jadi [Nama]!</h1>
+    <p>Sertai kami untuk parti bertema Cocomelon yang penuh kegembiraan!</p>
+    <p><strong>Tarikh:</strong> 1 Mei 2025<br>
+       <strong>Masa:</strong> 3:00 PM<br>
+       <strong>Lokasi:</strong> [Alamat atau Pautan Peta]</p>
+    <a href="https://wa.me/60123456789?text=Saya%20sertai%20hari%20jadi%20[Nama]!" class="button">Sertai Parti!</a>
+    <a href="#" class="button" onclick="showConfetti()">Kejutan Cocomelon!</a>
+  </div>
+  <canvas id="confetti" class="confetti"></canvas>
+
+  <script>
+    function showConfetti() {
+      const canvas = document.getElementById('confetti');
+      canvas.style.display = 'block';
+      // Tambah pustaka JSConfetti untuk kesan konfeti
+      alert('Yay! Jumpa di parti Cocomelon!');
+      setTimeout(() => canvas.style.display = 'none', 3000);
+    }
+  </script>
+</body>
+</html>
