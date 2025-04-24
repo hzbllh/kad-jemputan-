@@ -147,13 +147,15 @@
   <script>
     // Smooth Scroll to Details
     function scrollToDetails() {
-      const detailsSection = document.getElementById('details');
-      if (detailsSection) {
-        detailsSection.scrollIntoView({ behavior: 'smooth' });
-        console.log('Scrolled to details section');
-      } else {
-        console.error('Details section not found');
-      }
+      setTimeout(() => {
+        const detailsSection = document.getElementById('details');
+        if (detailsSection) {
+          detailsSection.scrollIntoView({ behavior: 'smooth' });
+          console.log('Scrolled to details section');
+        } else {
+          console.error('Details section not found');
+        }
+      }, 100); // Small delay to ensure DOM is fully loaded
     }
 
     // Countdown Timer
