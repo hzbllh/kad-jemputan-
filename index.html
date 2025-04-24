@@ -193,6 +193,7 @@
     <div id="countdown">
       <p id="countdown-timer">Masa menanti...</p>
     </div>
+    <button class="btn" id="back-btn" onclick="backToHome()">Kembali</button>
   </section>
 
   <script>
@@ -211,15 +212,37 @@
       }
     }
 
-    // Add event listener as backup
+    // Back to Home
+    function backToHome() {
+      console.log('backToHome function called');
+      const detailsSection = document.getElementById('details');
+      const homeSection = document.getElementById('home');
+      if (detailsSection && homeSection) {
+        console.log('Elements found, applying classes');
+        detailsSection.classList.remove('active');
+        homeSection.classList.remove('hidden');
+        console.log('Returned to home section');
+      } else {
+        console.error('Button or sections not found');
+      }
+    }
+
+    // Add event listeners
     document.addEventListener('DOMContentLoaded', function() {
       console.log('DOM fully loaded');
       const slideBtn = document.getElementById('slide-btn');
+      const backBtn = document.getElementById('back-btn');
       if (slideBtn) {
         console.log('Slide button found, adding event listener');
         slideBtn.addEventListener('click', slideToDetails);
       } else {
         console.error('Slide button not found');
+      }
+      if (backBtn) {
+        console.log('Back button found, adding event listener');
+        backBtn.addEventListener('click', backToHome);
+      } else {
+        console.error('Back button not found');
       }
     });
 
