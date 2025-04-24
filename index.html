@@ -1,504 +1,315 @@
 <!DOCTYPE html>
-
-<html lang="en">
-
+<html lang="ms">
 <head>
-
-    <meta charset="UTF-8">
-
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>Kad Jemputan</title>
-
-    
-
-    <!-- Link to Font Awesome CSS for Icons -->
-
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
-
-
-
-    <style>
-
-        * {
-
-            margin: 0;
-
-            padding: 0;
-
-            box-sizing: border-box;
-
-        }
-
-
-
-        body {
-
-            font-family: "Josefin Slab", serif;
-
-            background-color: #f9f6f2; /* Light beige background */
-
-            display: flex;
-
-            justify-content: center;
-
-            align-items: center;
-
-            height: 100vh;
-
-            overflow: hidden; /* Prevent scrolling until clicked */
-
-        }
-
-
-
-        .title-container {
-
-            display: flex;
-
-            flex-direction: column;
-
-            align-items: center;
-
-            justify-content: center;
-
-            height: 100vh;
-
-            cursor: pointer; /* Change cursor to indicate it's clickable */
-
-        }
-
-
-
-        .title-container h1 {
-
-            font-size: 36px;
-
-            color: #d4af37; /* Soft gold for title */
-
-            margin-bottom: 10px;
-
-        }
-
-
-
-        .title-container p {
-
-            font-size: 24px;
-
-            color: #333;
-
-        }
-
-
-
-        .islamic-element {
-
-            font-size: 20px;
-
-            color: #b59745; /* Darker soft gold for Islamic element */
-
-            margin-bottom: 20px;
-
-        }
-
-
-
-        .card-container {
-
-            background-color: #ffffff; /* White card background */
-
-            width: 0; /* Start width as 0 for animation */
-
-            max-width: 400px;
-
-            height: 0; /* Start height as 0 for animation */
-
-            padding: 0; /* Start padding as 0 for animation */
-
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
-
-            border-radius: 15px;
-
-            text-align: center;
-
-            display: none; /* Initially hidden */
-
-            position: absolute;
-
-            top: 50%;
-
-            left: 50%;
-
-            transform: translate(-50%, -50%) scale(0); /* Centered and scaled down */
-
-            z-index: 1; /* Ensure it appears above the title */
-
-            opacity: 0; /* Start invisible for animation */
-
-            transition: width 0.5s ease, height 0.5s ease, padding 0.5s ease, transform 0.5s ease, opacity 0.5s ease; /* Animation for opening */
-
-        }
-
-
-
-        .card-container.open {
-
-            width: 90%; /* Set the final width */
-
-            height: auto; /* Allow the height to adjust automatically */
-
-            padding: 20px; /* Set the final padding */
-
-            transform: translate(-50%, -50%) scale(1); /* Scale up to normal size */
-
-            opacity: 1; /* Fade in */
-
-        }
-
-
-
-        .card-header {
-
-            background: linear-gradient(to right, #f9d57c, #e3c83c); /* Soft golden gradient for header */
-
-            padding: 20px;
-
-            border-radius: 15px 15px 0 0;
-
-        }
-
-
-
-        .card-header h1 {
-
-            color: #ffffff; /* White text for header */
-
-            font-size: 28px;
-
-            letter-spacing: 2px;
-
-        }
-
-
-
-        .card-body {
-
-            padding: 20px;
-
-        }
-
-
-
-        .card-body p {
-
-            font-size: 18px;
-
-            margin: 5px 0; /* Reduced margin to control spacing */
-
-            line-height: 1.6;
-
-        }
-
-
-
-        .countdown {
-
-            font-size: 20px;
-
-            margin: 20px 0;
-
-            color: #b59745; /* Darker soft gold for countdown */
-
-        }
-
-
-
-        .card-footer {
-
-            padding: 10px;
-
-            background-color: #e3c83c; /* Soft golden footer */
-
-            border-radius: 0 0 15px 15px;
-
-        }
-
-
-
-        .card-footer p {
-
-            color: #ffffff; /* White text for footer */
-
-            font-size: 16px;
-
-            margin-bottom: 10px;
-
-        }
-
-
-
-        .card-footer .icons {
-
-            display: flex;
-
-            justify-content: center;
-
-            align-items: center;
-
-            gap: 20px; /* Space between the icons */
-
-        }
-
-
-
-        .card-footer .icons a {
-
-            color: #ffffff; /* White icons */
-
-            text-decoration: none;
-
-            font-size: 24px;
-
-            transition: color 0.3s;
-
-        }
-
-
-
-        .card-footer .icons a:hover {
-
-            color: #f9d57c; /* Light golden on hover */
-
-        }
-
-
-
-        .save-date-btn {
-
-            display: inline-block;
-
-            padding: 10px 20px;
-
-            background-color: #d4af37; /* Soft gold button */
-
-            color: #ffffff; /* White button text */
-
-            text-decoration: none;
-
-            border-radius: 5px;
-
-            margin-top: 20px;
-
-            transition: background-color 0.3s;
-
-        }
-
-
-
-        .save-date-btn:hover {
-
-            background-color: #f9d57c; /* Lighter golden on hover */
-
-        }
-
-
-
-        /* Responsive Design */
-
-        @media (max-width: 480px) {
-
-            .card-container {
-
-                width: 95%;
-
-                padding: 15px;
-
-            }
-
-
-
-            .card-header h1 {
-
-                font-size: 24px;
-
-            }
-
-
-
-            .card-body p {
-
-                font-size: 16px;
-
-            }
-
-
-
-            .save-date-btn {
-
-                padding: 8px 16px;
-
-            }
-
-        }
-
-    </style>
-
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kad Jemputan Hari Jadi</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    body {
+      background: linear-gradient(135deg, #1e3a8a, #facc15);
+      color: #fff;
+      overflow-x: hidden;
+    }
+
+    section {
+      padding: 40px 20px;
+      text-align: center;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+
+    h1, h2 {
+      font-size: 2.5em;
+      margin-bottom: 20px;
+      color: #facc15;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    }
+
+    p {
+      font-size: 1.2em;
+      margin-bottom: 15px;
+    }
+
+    .btn {
+      background: #facc15;
+      color: #1e3a8a;
+      padding: 10px 20px;
+      border-radius: 25px;
+      text-decoration: none;
+      font-weight: bold;
+      transition: transform 0.3s;
+    }
+
+    .btn:hover {
+      transform: scale(1.1);
+    }
+
+    /* Header */
+    #home {
+      background: url('https://source.unsplash.com/random/1920x1080?birthday') no-repeat center/cover;
+      position: relative;
+    }
+
+    #home::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+    }
+
+    #home h1, #home p {
+      position: relative;
+      z-index: 1;
+    }
+
+    /* Countdown */
+    #countdown {
+      background: rgba(255, 255, 255, 0.1);
+      padding: 20px;
+      border-radius: 15px;
+      margin: 20px 0;
+    }
+
+    #countdown p {
+      font-size: 2em;
+      font-weight: bold;
+    }
+
+    /* Gallery */
+    .gallery {
+      display: flex;
+      overflow-x: auto;
+      gap: 10px;
+      padding: 20px;
+    }
+
+    .gallery img {
+      width: 200px;
+      height: 200px;
+      object-fit: cover;
+      border-radius: 10px;
+      transition: transform 0.3s;
+    }
+
+    .gallery img:hover {
+      transform: scale(1.05);
+    }
+
+    /* Guestbook */
+    #guestbook form {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      max-width: 500px;
+      margin: 0 auto;
+    }
+
+    #guestbook input, #guestbook textarea {
+      padding: 10px;
+      border: none;
+      border-radius: 5px;
+      font-size: 1em;
+    }
+
+    #guestbook button {
+      background: #facc15;
+      color: #1e3a8a;
+      padding: 10px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    #guestbook-list {
+      margin-top: 20px;
+      max-width: 500px;
+      margin: 20px auto;
+      text-align: left;
+    }
+
+    .guest-entry {
+      background: rgba(255, 255, 255, 0.2);
+      padding: 10px;
+      border-radius: 5px;
+      margin-bottom: 10px;
+    }
+
+    /* Music Control */
+    #music-control {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: #facc15;
+      color: #1e3a8a;
+      padding: 10px;
+      border-radius: 50%;
+      cursor: pointer;
+      z-index: 100;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      h1, h2 {
+        font-size: 2em;
+      }
+
+      p {
+        font-size: 1em;
+      }
+
+      .gallery img {
+        width: 150px;
+        height: 150px;
+      }
+    }
+  </style>
 </head>
-
 <body>
+  <!-- Music -->
+  <audio id="background-music" loop>
+    <source src="https://www.zedge.net/ringtone/7e6f2b7c-6b9b-4b2e-8a5c-8b7f2e6f2b7c" type="audio/mp3">
+  </audio>
+  <div id="music-control" onclick="toggleMusic()">
+    <i class="fas fa-volume-up"></i>
+  </div>
 
-    <div class="title-container" onclick="showInvitation()">
+  <!-- Home -->
+  <section id="home">
+    <h1>Selamat Hari Jadi, Ali!</h1>
+    <p>Meraikan ulang tahun ke-10</p>
+    <a href="#details" class="btn">Lihat Butiran</a>
+  </section>
 
-        <h1>Majlis Makan-Makan</h1>
-
-        <p>Ahad 24.11.24</p>
-
+  <!-- Details -->
+  <section id="details">
+    <h2>Butiran Majlis</h2>
+    <p><strong>Tarikh:</strong> 15 Mei 2025</p>
+    <p><strong>Masa:</strong> 3:00 petang - 7:00 petang</p>
+    <p><strong>Lokasi:</strong> Dewan Serbaguna Taman Ria, Johor Bahru</p>
+    <a href="https://maps.google.com/?q=Dewan+Serbaguna+Taman+Ria+Johor+Bahru" target="_blank" class="btn">Buka Peta</a>
+    <div id="countdown">
+      <p id="countdown-timer">Masa menanti...</p>
     </div>
+  </section>
 
-
-
-    <div class="card-container" id="invitationCard">
-
-        <div class="card-header">
-
-            <h1>Jemputan</h1>
-
-        </div>
-
-        <div class="card-body">
-
-            <p><strong>Muhammad Helmyreza bin Jeffery Salim</strong></p>
-
-            <p>Kami menjemput anda hadir ke majlis makan-makan kami.</p>
-
-            <p><strong>Tempat:</strong></p>
-
-            <p>No. 3, Jalan Prima 2/4, Taman Puchong Prima, 47150 Puchong, Selangor</p>
-
-            <p><strong>Tarikh:</strong></p>
-
-            <p>24 November 2024</p>
-
-            <p><strong>Masa:</strong></p>
-
-            <p>12:00 PM</p>
-
-            <div class="countdown" id="countdown"></div> <!-- Countdown timer -->
-
-            <a href="#" class="save-date-btn" id="saveDateBtn">Save the Date</a> <!-- Moved the button here -->
-
-        </div>
-
-        <div class="card-footer">
-
-            <div class="icons">
-
-                <a href="https://maps.app.goo.gl/jQzb58e4LNuaPx9L8" target="_blank">
-
-                    <i class="fas fa-map-marker-alt"></i>
-
-                </a>
-
-                <a href="https://waze.com/ul?q=No.+3%2C+Jalan+Prima+2%2F4%2C+Taman+Puchong+Prima%2C+47150+Puchong%2C+Selangor" target="_blank">
-
-                    <i class="fab fa-waze"></i>
-
-                </a>
-
-                <a href="https://wa.me/819045656530" target="_blank">
-
-                    <i class="fab fa-whatsapp"></i>
-
-                </a>
-
-            </div>
-
-            <p>Created by 三木春</p>
-
-        </div>
-
+  <!-- Gallery -->
+  <section id="gallery">
+    <h2>Galeri Kenangan</h2>
+    <div class="gallery">
+      <img src="https://source.unsplash.com/random/200x200?birthday" alt="Photo 1">
+      <img src="https://source.unsplash.com/random/200x201?party" alt="Photo 2">
+      <img src="https://source.unsplash.com/random/200x202?cake" alt="Photo 3">
     </div>
+  </section>
 
+  <!-- Guestbook -->
+  <section id="guestbook">
+    <h2>Buku Tetamu</h2>
+    <form id="guestbook-form">
+      <input type="text" id="guest-name" placeholder="Nama Anda" required>
+      <textarea id="guest-message" placeholder="Ucapan atau Doa" required></textarea>
+      <button type="submit">Hantar Ucapan</button>
+    </form>
+    <div id="guestbook-list"></div>
+  </section>
 
+  <script>
+    // Countdown Timer
+    const eventDate = new Date('2025-05-15T15:00:00').getTime();
+    const countdownTimer = document.getElementById('countdown-timer');
 
-    <script>
+    function updateCountdown() {
+      const now = new Date().getTime();
+      const distance = eventDate - now;
 
-        function showInvitation() {
+      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
-            document.querySelector('.title-container').style.display = 'none';
+      countdownTimer.textContent = `${days}h ${hours}j ${minutes}m ${seconds}s`;
 
-            const invitationCard = document.getElementById('invitationCard');
+      if (distance < 0) {
+        countdownTimer.textContent = 'Hari ini adalah hari jadi!';
+      }
+    }
 
-            invitationCard.style.display = 'block';
+    setInterval(updateCountdown, 1000);
 
+    // Music Control
+    const audio = document.getElementById('background-music');
+    const musicControl = document.getElementById('music-control');
+    let isPlaying = false;
 
+    function toggleMusic() {
+      if (isPlaying) {
+        audio.pause();
+        musicControl.innerHTML = '<i class="fas fa-volume-mute"></i>';
+      } else {
+        audio.play();
+        musicControl.innerHTML = '<i class="fas fa-volume-up"></i>';
+      }
+      isPlaying = !isPlaying;
+    }
 
-            // Trigger the animation
+    // Guestbook
+    const guestbookForm = document.getElementById('guestbook-form');
+    const guestbookList = document.getElementById('guestbook-list');
 
-            setTimeout(() => {
+    guestbookForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const name = document.getElementById('guest-name').value;
+      const message = document.getElementById('guest-message').value;
 
-                invitationCard.classList.add('open'); // Add open class to start animation
+      const entry = document.createElement('div');
+      entry.classList.add('guest-entry');
+      entry.innerHTML = `<strong>${name}</strong>: ${message}`;
+      guestbookList.appendChild(entry);
 
-            }, 10); // Short delay to ensure the element is displayed before the animation
+      guestbookForm.reset();
+    });
 
+    // Confetti Animation (Simple)
+    function createConfetti() {
+      const confetti = document.createElement('div');
+      confetti.style.position = 'fixed';
+      confetti.style.width = '10px';
+      confetti.style.height = '10px';
+      confetti.style.background = ['#facc15', '#1e3a8a', '#ff0000', '#00ff00'][Math.floor(Math.random() * 4)];
+      confetti.style.left = Math.random() * 100 + 'vw';
+      confetti.style.top = '-10px';
+      confetti.style.opacity = '0.8';
+      confetti.style.animation = `fall ${Math.random() * 3 + 2}s linear`;
 
+      document.body.appendChild(confetti);
+      setTimeout(() => confetti.remove(), 5000);
+    }
 
-            startCountdown();
+    setInterval(createConfetti, 200);
 
-        }
-
-
-
-        function startCountdown() {
-
-            const eventDate = new Date("2024-11-24T12:00:00Z"); // Set event date and time
-
-            const countdownElement = document.getElementById('countdown');
-
-
-
-            setInterval(() => {
-
-                const now = new Date().getTime();
-
-                const distance = eventDate - now;
-
-
-
-                const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-
-                const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-
-                const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-
-                const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-
-
-                countdownElement.innerHTML = `
-
-                    <strong>Countdown:</strong><br>
-
-                    ${days} Hari ${hours} Jam ${minutes} Minit ${seconds} Saat
-
-                `;
-
-
-
-                if (distance < 0) {
-
-                    clearInterval();
-
-                    countdownElement.innerHTML = "The event has started!";
-
-                }
-
-            }, 1000);
-
-        }
-
-    </script>
-
+    const style = document.createElement('style');
+    style.innerHTML = `
+      @keyframes fall {
+        0% { transform: translateY(0); }
+        100% { transform: translateY(100vh); }
+      }
+    `;
+    document.head.appendChild(style);
+  </script>
 </body>
-
+</html>
