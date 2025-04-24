@@ -60,8 +60,17 @@
     }
 
     /* Images */
-    .section-img {
-      max-width: 300px;
+    .section-img-home {
+      max-width: 500px; /* Saiz lebih besar untuk imej Home */
+      width: 100%;
+      height: auto;
+      margin: 20px 0;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    }
+
+    .section-img-details {
+      max-width: 300px; /* Saiz asal untuk imej Details */
       width: 100%;
       height: auto;
       margin: 20px 0;
@@ -89,7 +98,7 @@
       background: rgba(0, 0, 0, 0.5);
     }
 
-    #home h1, #home p, #home .btn, #home .section-img {
+    #home h1, #home p, #home .btn, #home .section-img-home {
       position: relative;
       z-index: 1;
     }
@@ -147,7 +156,11 @@
         font-size: 1em;
       }
 
-      .section-img {
+      .section-img-home {
+        max-width: 350px; /* Saiz lebih kecil untuk peranti mudah alih */
+      }
+
+      .section-img-details {
         max-width: 200px;
       }
     }
@@ -167,12 +180,12 @@
     <h1>Selamat Hari Jadi, Muhammad Naufal!</h1>
     <p>Meraikan ulang tahun ke-10</p>
     <button class="btn" id="slide-btn" onclick="slideToDetails()">Lihat Butiran</button>
-    <img src="https://raw.githubusercontent.com/hzbllh/kad-jemputan-/734171532dd409f0c509e2b1704f835937ccdf6e/51gu-YUlCjL._AC_UF1000%2C1000_QL80_FMwebp_.webp" alt="Hiasan Hari Jadi" class="section-img">
+    <img src="https://raw.githubusercontent.com/hzbllh/kad-jemputan-/734171532dd409f0c509e2b1704f835937ccdf6e/51gu-YUlCjL._AC_UF1000%2C1000_QL80_FMwebp_.webp" alt="Hiasan Hari Jadi" class="section-img-home">
   </section>
 
   <!-- Details -->
   <section id="details">
-    <img src="https://raw.githubusercontent.com/hzbllh/kad-jemputan-/734171532dd409f0c509e2b1704f835937ccdf6e/cropped_image.png" alt="Imej Hari Jadi" class="section-img">
+    <img src="https://raw.githubusercontent.com/hzbllh/kad-jemputan-/734171532dd409f0c509e2b1704f835937ccdf6e/cropped_image.png" alt="Imej Hari Jadi" class="section-img-details">
     <h2>Butiran Majlis</h2>
     <p><strong>Tarikh:</strong> 11 Mei 2025</p>
     <p><strong>Masa:</strong> 3:00 petang - 7:00 petang</p>
