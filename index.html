@@ -348,4 +348,354 @@
     document.head.appendChild(style);
   </script>
 </body>
+</html><!DOCTYPE html>
+<html lang="ms">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kad Jemputan Hari Jadi</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    body {
+      background: linear-gradient(135deg, #1e3a8a, #facc15);
+      color: #fff;
+      overflow-x: hidden;
+    }
+
+    section {
+      padding: 40px 20px;
+      text-align: center;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+    }
+
+    h1, h2 {
+      font-size: 2.5em;
+      margin-bottom: 20px;
+      color: #facc15;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    }
+
+    p {
+      font-size: 1.2em;
+      margin-bottom: 15px;
+    }
+
+    .btn {
+      background: #facc15;
+      color: #1e3a8a;
+      padding: 10px 20px;
+      border-radius: 25px;
+      text-decoration: none;
+      font-weight: bold;
+      transition: transform 0.3s;
+      cursor: pointer;
+      display: inline-block;
+      border: none;
+    }
+
+    .btn:hover {
+      transform: scale(1.1);
+    }
+
+    /* Images */
+    .section-img-home {
+      max-width: 500px; /* Saiz lebih besar untuk imej Home */
+      width: 100%;
+      height: auto;
+      margin: 20px 0;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    }
+
+    .section-img-details {
+      max-width: 300px; /* Saiz asal untuk imej Details */
+      width: 100%;
+      height: auto;
+      margin: 20px 0;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    }
+
+    /* Music Prompt */
+    .music-prompt {
+      font-size: 1em;
+      color: #facc15;
+      margin-bottom: 15px;
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.1); }
+      100% { transform: scale(1); }
+    }
+
+    /* Header */
+    #home {
+      background: url('https://source.unsplash.com/random/1920x1080?birthday') no-repeat center/cover;
+      position: relative;
+      z-index: 1;
+      display: block;
+      opacity: 1;
+      transition: opacity 0.8s ease-in-out;
+    }
+
+    #home::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+    }
+
+    #home h1, #home p, #home .btn, #home .section-img-home {
+      position: relative;
+      z-index: 1;
+    }
+
+    #home.hidden {
+      display: none;
+      opacity: 0;
+    }
+
+    /* Details */
+    #details {
+      display: none;
+      opacity: 0;
+      transition: opacity 0.8s ease-in-out;
+    }
+
+    #details.active {
+      display: flex;
+      opacity: 1;
+    }
+
+    /* Countdown */
+    #countdown {
+      background: rgba(255, 255, 255, 0.1);
+      padding: 20px;
+      border-radius: 15px;
+      margin: 20px 0;
+    }
+
+    #countdown p {
+      font-size: 2em;
+      font-weight: bold;
+    }
+
+    /* Music Control */
+    #music-control {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: #facc15;
+      color: #1e3a8a;
+      padding: 10px;
+      border-radius: 50%;
+      cursor: pointer;
+      z-index: 100;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      h1, h2 {
+        font-size: 2em;
+      }
+
+      p {
+        font-size: 1em;
+      }
+
+      .section-img-home {
+        max-width: 350px; /* Saiz lebih kecil untuk peranti mudah alih */
+      }
+
+      .section-img-details {
+        max-width: 200px;
+      }
+
+      .music-prompt {
+        font-size: 0.9em;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Music -->
+  <audio id="background-music" loop>
+    <source src="https://raw.githubusercontent.com/hzbllh/kad-jemputan-/main/happy-birthday-254480.mp3" type="audio/mp3">
+  </audio>
+  <div id="music-control" onclick="toggleMusic()">
+    <i class="fas fa-volume-up"></i>
+  </div>
+
+  <!-- Home -->
+  <section id="home">
+    <h1>Jemputan Ke Majlis Sambutan Hari Jadi</h1>
+    <p>Meraikan ulang tahun Muhammad Naufal yang ke-2</p>
+    <p class="music-prompt">Klik ikon muzik di kanan bawah untuk lagu hari jadi! 🎶</p>
+    <button class="btn" id="slide-btn" onclick="slideToDetails()">Lihat Butiran</button>
+    <img src="https://raw.githubusercontent.com/hzbllh/kad-jemputan-/734171532dd409f0c509e2b1704f835937ccdf6e/51gu-YUlCjL._AC_UF1000%2C1000_QL80_FMwebp_.webp" alt="Hiasan Hari Jadi" class="section-img-home">
+  </section>
+
+  <!-- Details -->
+  <section id="details">
+    <img src="https://raw.githubusercontent.com/hzbllh/kad-jemputan-/734171532dd409f0c509e2b1704f835937ccdf6e/cropped_image.png" alt="Imej Hari Jadi" class="section-img-details">
+    <h2>Muhammad Naufal</h2>
+    <p><strong>Tarikh:</strong> 11 Mei 2025</p>
+    <p><strong>Masa:</strong> 5:00 petang</p>
+    <p><strong>Lokasi:</strong> Lot 2442, Kampung Langkap Ketior</p>
+    <div id="countdown">
+      <p id="countdown-timer">Masa menanti...</p>
+    </div>
+    <button class="btn" id="back-btn" onclick="backToHome()">Kembali</button>
+  </section>
+
+  <script>
+    // Slide to Details
+    function slideToDetails() {
+      console.log('slideToDetails function called');
+      const detailsSection = document.getElementById('details');
+      const homeSection = document.getElementById('home');
+      if (detailsSection && homeSection) {
+        console.log('Elements found, applying classes');
+        homeSection.classList.add('hidden');
+        detailsSection.classList.add('active');
+        console.log('Slid to details section');
+      } else {
+        console.error('Button or sections not found');
+      }
+    }
+
+    // Back to Home
+    function backToHome() {
+      console.log('backToHome function called');
+      const detailsSection = document.getElementById('details');
+      const homeSection = document.getElementById('home');
+      if (detailsSection && homeSection) {
+        console.log('Elements found, applying classes');
+        detailsSection.classList.remove('active');
+        homeSection.classList.remove('hidden');
+        console.log('Returned to home section');
+      } else {
+        console.error('Button or sections not found');
+      }
+    }
+
+    // Add event listeners
+    document.addEventListener('DOMContentLoaded', function() {
+      console.log('DOM fully loaded');
+      const slideBtn = document.getElementById('slide-btn');
+      const backBtn = document.getElementById('back-btn');
+      const audio = document.getElementById('background-music');
+      const musicControl = document.getElementById('music-control');
+
+      if (slideBtn) {
+        console.log('Slide button found, adding event listener');
+        slideBtn.addEventListener('click', slideToDetails);
+      } else {
+        console.error('Slide button not found');
+      }
+      if (backBtn) {
+        console.log('Back button found, adding event listener');
+        backBtn.addEventListener('click', backToHome);
+      } else {
+        console.error('Back button not found');
+      }
+
+      // Cuba mainkan audio secara automatik
+      if (audio && musicControl) {
+        audio.play().then(() => {
+          console.log('Autoplay started successfully');
+          isPlaying = true;
+          musicControl.innerHTML = '<i class="fas fa-volume-up"></i>';
+        }).catch((error) => {
+          console.error('Autoplay blocked:', error);
+          isPlaying = false;
+          musicControl.innerHTML = '<i class="fas fa-volume-mute"></i>';
+        });
+      }
+    });
+
+    // Countdown Timer
+    const eventDate = new Date('2025-05-11T17:00:00').getTime();
+    const countdownTimer = document.getElementById('countdown-timer');
+
+    function updateCountdown() {
+      const now = new Date().getTime();
+      const distance = eventDate - now;
+
+      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+      countdownTimer.textContent = `${days}h ${hours}j ${minutes}m ${seconds}s`;
+
+      if (distance < 0) {
+        countdownTimer.textContent = 'Hari ini adalah hari jadi!';
+      }
+    }
+
+    setInterval(updateCountdown, 1000);
+
+    // Music Control
+    const audio = document.getElementById('background-music');
+    const musicControl = document.getElementById('music-control');
+    let isPlaying = false;
+
+    function toggleMusic() {
+      if (isPlaying) {
+        audio.pause();
+        musicControl.innerHTML = '<i class="fas fa-volume-mute"></i>';
+      } else {
+        audio.play();
+        musicControl.innerHTML = '<i class="fas fa-volume-up"></i>';
+      }
+      isPlaying = !isPlaying;
+    }
+
+    // Confetti Animation
+    function createConfetti() {
+      const confetti = document.createElement('div');
+      const colors = ['#facc15', '#1e3a8a', '#ff0000', '#00ff00'];
+      confetti.style.position = 'fixed';
+      confetti.style.width = '10px';
+      confetti.style.height = '10px';
+      confetti.style.background = colors[Math.floor(Math.random() * colors.length)];
+      confetti.style.left = Math.random() * 100 + 'vw';
+      confetti.style.top = '-10px';
+      confetti.style.opacity = '0.8';
+      confetti.style.animation = `fall ${Math.random() * 3 + 2}s linear`;
+
+      document.body.appendChild(confetti);
+      setTimeout(() => confetti.remove(), 5000);
+    }
+
+    setInterval(createConfetti, 200);
+
+    const style = document.createElement('style');
+    style.innerHTML = `
+      @keyframes fall {
+        0% { transform: translateY(0); }
+        100% { transform: translateY(100vh); }
+      }
+    `;
+    document.head.appendChild(style);
+  </script>
+</body>
 </html>
