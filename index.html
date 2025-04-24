@@ -251,6 +251,9 @@
       console.log('DOM fully loaded');
       const slideBtn = document.getElementById('slide-btn');
       const backBtn = document.getElementById('back-btn');
+      const audio = document.getElementById('background-music');
+      const musicControl = document.getElementById('music-control');
+
       if (slideBtn) {
         console.log('Slide button found, adding event listener');
         slideBtn.addEventListener('click', slideToDetails);
@@ -262,6 +265,19 @@
         backBtn.addEventListener('click', backToHome);
       } else {
         console.error('Back button not found');
+      }
+
+      // Cuba mainkan audio secara automatik
+      if (audio && musicControl) {
+        audio.play().then(() => {
+          console.log('Autoplay started successfully');
+          isPlaying = true;
+          musicControl.innerHTML = '<i class="fas fa-volume-up"></i>';
+        }).catch((error) => {
+          console.error('Autoplay blocked:', error);
+          isPlaying = false;
+          musicControl.innerHTML = '<i class="fas fa-volume-mute"></i>';
+        });
       }
     });
 
