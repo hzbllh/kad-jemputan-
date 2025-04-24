@@ -1,1 +1,236 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kad Jemputan Hari Jadi</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
 
+    body {
+      background: linear-gradient(135deg, #1e3a8a, #facc15);
+      color: #fff;
+      overflow-x: hidden;
+    }
+
+    section {
+      padding: 40px 20px;
+      text-align: center;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+
+    h1, h2 {
+      font-size: 2.5em;
+      margin-bottom: 20px;
+      color: #facc15;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    }
+
+    p {
+      font-size: 1.2em;
+      margin-bottom: 15px;
+    }
+
+    .btn {
+      background: #facc15;
+      color: #1e3a8a;
+      padding: 10px 20px;
+      border-radius: 25px;
+      text-decoration: none;
+      font-weight: bold;
+      transition: transform 0.3s;
+      cursor: pointer;
+      display: inline-block;
+    }
+
+    .btn:hover {
+      transform: scale(1.1);
+    }
+
+    /* Header */
+    #home {
+      background: url('https://source.unsplash.com/random/1920x1080?birthday') no-repeat center/cover;
+      position: relative;
+    }
+
+    #home::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+    }
+
+    #home h1, #home p {
+      position: relative;
+      z-index: 1;
+    }
+
+    /* Countdown */
+    #countdown {
+      background: rgba(255, 255, 255, 0.1);
+      padding: 20px;
+      border-radius: 15px;
+      margin: 20px 0;
+    }
+
+    #countdown p {
+      font-size: 2em;
+      font-weight: bold;
+    }
+
+    /* Music Control */
+    #music-control {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: #facc15;
+      color: #1e3a8a;
+      padding: 10px;
+      border-radius: 50%;
+      cursor: pointer;
+      z-index: 100;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      h1, h2 {
+        font-size: 2em;
+      }
+
+      p {
+        font-size: 1em;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Music -->
+  <audio id="background-music" loop>
+    <source src="https://www.zedge.net/ringtone/7e6f2b7c-6b9b-4b2e-8a5c-8b7f2e6f2b7c" type="audio/mp3">
+  </audio>
+  <div id="music-control" onclick="toggleMusic()">
+    <i class="fas fa-volume-up"></i>
+  </div>
+
+  <!-- Home -->
+  <section id="home">
+    <h1>Selamat Hari Jadi, Ali!</h1>
+    <p>Meraikan ulang tahun ke-10</p>
+    <a class="btn" onclick="scrollToDetails()">Lihat Butiran</a>
+  </section>
+
+  <!-- Details -->
+  <section id="details">
+    <h2>Butiran Majlis</h2>
+    <p><strong>Tarikh:</strong> 15 Mei 2025</p>
+    <p><strong>Masa:</strong> 3:00 petang - 7:00 petang</p>
+    <p><strong>Lokasi:</strong> Dewan Serbaguna Taman Ria, Johor Bahru</p>
+    <a href="https://maps.google.com/?q=Dewan+Serbaguna+Taman+Ria+Johor+Bahru" target="_blank" class="btn">Buka Peta</a>
+    <div id="countdown">
+      <p id="countdown-timer">Masa menanti...</p>
+    </div>
+  </section>
+
+  <script>
+    // Smooth Scroll to Details
+    function scrollToDetails() {
+      const detailsSection = document.getElementById('details');
+      if (detailsSection) {
+        detailsSection.scrollIntoView({ behavior: 'smooth' });
+        console.log('Scrolled to details section');
+      } else {
+        console.error('Details section not found');
+      }
+    }
+
+    // Ensure button is clickable on page load
+    document.addEventListener('DOMContentLoaded', () => {
+      const detailsButton = document.querySelector('#home .btn');
+      if (detailsButton) {
+        detailsButton.addEventListener('click', scrollToDetails);
+        console.log('Details button initialized');
+      } else {
+        console.error('Details button not found');
+      }
+    });
+
+    // Countdown Timer
+    const eventDate = new Date('2025-05-15T15:00:00').getTime();
+    const countdownTimer = document.getElementById('countdown-timer');
+
+    function updateCountdown() {
+      const now = new Date().getTime();
+      const distance = eventDate - now;
+
+      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+      countdownTimer.textContent = `${days}h ${hours}j ${minutes}m ${seconds}s`;
+
+      if (distance < 0) {
+        countdownTimer.textContent = 'Hari ini adalah hari jadi!';
+      }
+    }
+
+    setInterval(updateCountdown, 1000);
+
+    // Music Control
+    const audio = document.getElementById('background-music');
+    const musicControl = document.getElementById('music-control');
+    let isPlaying = false;
+
+    function toggleMusic() {
+      if (isPlaying) {
+        audio.pause();
+        musicControl.innerHTML = '<i class="fas fa-volume-mute"></i>';
+      } else {
+        audio.play();
+        musicControl.innerHTML = '<i class="fas fa-volume-up"></i>';
+      }
+      isPlaying = !isPlaying;
+    }
+
+    // Confetti Animation
+    function createConfetti() {
+      const confetti = document.createElement('div');
+      confetti.style.position = 'fixed';
+      confetti.style.width = '10px';
+      confetti.style.height = '10px';
+      confetti.style.background = ['#facc15', '#1e3a8a', '#ff0000', '#00ff00'][Math.floor(Math.random() * 4)];
+      confetti.style.left = Math.random() * 100 + 'vw';
+      confetti.style.top = '-10px';
+      confetti.style.opacity = '0.8';
+      confetti.style.animation = `fall ${Math.random() * 3 + 2}s linear`;
+
+      document.body.appendChild(confetti);
+      setTimeout(() => confetti.remove(), 5000);
+    }
+
+    setInterval(createConfetti, 200);
+
+    const style = document.createElement('style');
+    style.innerHTML = `
+      @keyframes fall {
+        0% { transform: translateY(0); }
+        100% { transform: translateY(100vh); }
+      }
+    `;
+    document.head.appendChild(style);
+  </script>
+</body>
+</html>
