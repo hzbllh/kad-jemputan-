@@ -156,17 +156,6 @@
       }
     }
 
-    // Ensure button is clickable on page load
-    document.addEventListener('DOMContentLoaded', () => {
-      const detailsButton = document.querySelector('#home .btn');
-      if (detailsButton) {
-        detailsButton.addEventListener('click', scrollToDetails);
-        console.log('Details button initialized');
-      } else {
-        console.error('Details button not found');
-      }
-    });
-
     // Countdown Timer
     const eventDate = new Date('2025-05-11T15:00:00').getTime();
     const countdownTimer = document.getElementById('countdown-timer');
