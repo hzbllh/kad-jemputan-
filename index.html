@@ -49,6 +49,7 @@
       text-decoration: none;
       font-weight: bold;
       transition: transform 0.3s;
+      cursor: pointer;
     }
 
     .btn:hover {
@@ -89,66 +90,6 @@
       font-weight: bold;
     }
 
-    /* Gallery */
-    .gallery {
-      display: flex;
-      overflow-x: auto;
-      gap: 10px;
-      padding: 20px;
-    }
-
-    .gallery img {
-      width: 200px;
-      height: 200px;
-      object-fit: cover;
-      border-radius: 10px;
-      transition: transform 0.3s;
-    }
-
-    .gallery img:hover {
-      transform: scale(1.05);
-    }
-
-    /* Guestbook */
-    #guestbook form {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-      max-width: 500px;
-      margin: 0 auto;
-    }
-
-    #guestbook input, #guestbook textarea {
-      padding: 10px;
-      border: none;
-      border-radius: 5px;
-      font-size: 1em;
-    }
-
-    #guestbook button {
-      background: #facc15;
-      color: #1e3a8a;
-      padding: 10px;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-      font-weight: bold;
-    }
-
-    #guestbook-list {
-      margin-top: 20px;
-      max-width: 500px;
-      margin: 20px auto;
-      text-align: left;
-    }
-
-    .guest-entry {
-      background: rgba(255, 255, 255, 0.2);
-      padding: 10px;
-      border-radius: 5px;
-      margin-bottom: 10px;
-    }
-
     /* Music Control */
     #music-control {
       position: fixed;
@@ -171,11 +112,6 @@
       p {
         font-size: 1em;
       }
-
-      .gallery img {
-        width: 150px;
-        height: 150px;
-      }
     }
   </style>
 </head>
@@ -192,7 +128,7 @@
   <section id="home">
     <h1>Selamat Hari Jadi, Ali!</h1>
     <p>Meraikan ulang tahun ke-10</p>
-    <a href="#details" class="btn">Lihat Butiran</a>
+    <a class="btn" onclick="scrollToDetails()">Lihat Butiran</a>
   </section>
 
   <!-- Details -->
@@ -207,28 +143,12 @@
     </div>
   </section>
 
-  <!-- Gallery -->
-  <section id="gallery">
-    <h2>Galeri Kenangan</h2>
-    <div class="gallery">
-      <img src="https://source.unsplash.com/random/200x200?birthday" alt="Photo 1">
-      <img src="https://source.unsplash.com/random/200x201?party" alt="Photo 2">
-      <img src="https://source.unsplash.com/random/200x202?cake" alt="Photo 3">
-    </div>
-  </section>
-
-  <!-- Guestbook -->
-  <section id="guestbook">
-    <h2>Buku Tetamu</h2>
-    <form id="guestbook-form">
-      <input type="text" id="guest-name" placeholder="Nama Anda" required>
-      <textarea id="guest-message" placeholder="Ucapan atau Doa" required></textarea>
-      <button type="submit">Hantar Ucapan</button>
-    </form>
-    <div id="guestbook-list"></div>
-  </section>
-
   <script>
+    // Smooth Scroll to Details
+    function scrollToDetails() {
+      document.getElementById('details').scrollIntoView({ behavior: 'smooth' });
+    }
+
     // Countdown Timer
     const eventDate = new Date('2025-05-15T15:00:00').getTime();
     const countdownTimer = document.getElementById('countdown-timer');
@@ -267,24 +187,7 @@
       isPlaying = !isPlaying;
     }
 
-    // Guestbook
-    const guestbookForm = document.getElementById('guestbook-form');
-    const guestbookList = document.getElementById('guestbook-list');
-
-    guestbookForm.addEventListener('submit', (e) => {
-      e.preventDefault();
-      const name = document.getElementById('guest-name').value;
-      const message = document.getElementById('guest-message').value;
-
-      const entry = document.createElement('div');
-      entry.classList.add('guest-entry');
-      entry.innerHTML = `<strong>${name}</strong>: ${message}`;
-      guestbookList.appendChild(entry);
-
-      guestbookForm.reset();
-    });
-
-    // Confetti Animation (Simple)
+    // Confetti Animation
     function createConfetti() {
       const confetti = document.createElement('div');
       confetti.style.position = 'fixed';
